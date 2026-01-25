@@ -1,425 +1,1009 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>profile</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="apple-touch-icon" href="apple-touch-icon.png">
-
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="css/fontAwesome.css">
-        <link rel="stylesheet" href="css/light-box.css">
-        <link rel="stylesheet" href="css/templatemo-main.css">
-
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-
-        <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-    </head>
-
-<body>
+<!doctype html>
+<html lang="en" class="h-full scroll-smooth">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Website</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
     
-    <div class="sequence">
-  
-      <div class="seq-preloader">
-        <svg width="39" height="16" viewBox="0 0 39 16" xmlns="http://www.w3.org/2000/svg" class="seq-preload-indicator"><g fill="#F96D38"><path class="seq-preload-circle seq-preload-circle-1" d="M3.999 12.012c2.209 0 3.999-1.791 3.999-3.999s-1.79-3.999-3.999-3.999-3.999 1.791-3.999 3.999 1.79 3.999 3.999 3.999z"/><path class="seq-preload-circle seq-preload-circle-2" d="M15.996 13.468c3.018 0 5.465-2.447 5.465-5.466 0-3.018-2.447-5.465-5.465-5.465-3.019 0-5.466 2.447-5.466 5.465 0 3.019 2.447 5.466 5.466 5.466z"/><path class="seq-preload-circle seq-preload-circle-3" d="M31.322 15.334c4.049 0 7.332-3.282 7.332-7.332 0-4.049-3.282-7.332-7.332-7.332s-7.332 3.283-7.332 7.332c0 4.05 3.283 7.332 7.332 7.332z"/></g></svg>
-      </div>
-      
+    * {
+      font-family: 'Outfit', sans-serif;
+    }
+    
+    @keyframes fade-in-up {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes slide-in-left {
+      0% { opacity: 0; transform: translateX(-50px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+    
+    @keyframes slide-in-right {
+      0% { opacity: 0; transform: translateX(50px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: -1000px 0; }
+      100% { background-position: 1000px 0; }
+    }
+    
+    .fade-in-up {
+      animation: fade-in-up 0.8s ease-out forwards;
+      opacity: 0;
+    }
+    
+    .slide-in-left {
+      animation: slide-in-left 0.8s ease-out forwards;
+      opacity: 0;
+    }
+    
+    .slide-in-right {
+      animation: slide-in-right 0.8s ease-out forwards;
+      opacity: 0;
+    }
+    
+    .floating {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    .gradient-bg {
+      background-size: 200% 200%;
+      animation: gradient-shift 8s ease infinite;
+    }
+    
+    .shimmer {
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      background-size: 1000px 100%;
+      animation: shimmer 2s infinite;
+    }
+    
+    .project-card {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.1) 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    
+    .project-card:hover {
+      transform: translateY(-8px);
+    }
+    
+    .project-card:hover::before {
+      opacity: 1;
+    }
+    
+    .skill-tag {
+      transition: all 0.3s ease;
+    }
+    
+    .skill-tag:hover {
+      transform: scale(1.1);
+    }
+    
+    .nav-link {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .input-field {
+      transition: all 0.3s ease;
+    }
+    
+    .input-field:focus {
+      transform: translateY(-2px);
+    }
+    
+    .stagger-1 { animation-delay: 0.1s; }
+    .stagger-2 { animation-delay: 0.2s; }
+    .stagger-3 { animation-delay: 0.3s; }
+    .stagger-4 { animation-delay: 0.4s; }
+    .stagger-5 { animation-delay: 0.5s; }
+    .stagger-6 { animation-delay: 0.6s; }
+    
+    #back-to-top {
+      transition: all 0.3s ease;
+    }
+    
+    #back-to-top:hover {
+      transform: translateY(-4px);
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full m-0 overflow-auto">
+  <div id="app" class="min-h-full w-full"><!-- Sticky Navigation -->
+   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+     <div id="nav-logo" class="text-2xl font-bold"></div>
+     <div class="flex gap-6"><a href="#home" class="nav-link font-semibold">Home</a> <a href="#projects" class="nav-link font-semibold">Projects</a> <a href="#about" class="nav-link font-semibold">About</a> <a href="#ai-services" class="nav-link font-semibold">AI Automation</a> <a href="#contact" class="nav-link font-semibold">Contact</a>
+     </div>
     </div>
-    
-  
-        <nav>
-          <!-- <div class="logo">
-              <img src="img/logo.png" alt="">
-          </div> -->
-          <div class="mini-logo">
-              <img src="img/mini_logo.png" alt="">
-          </div>
-          <ul>
-            <li><a href="#1"><i class="fa fa-home"></i> <em>Home</em></a></li>
-            <li><a href="#2"><i class="fa fa-user"></i> <em>About</em></a></li>
-            <li><a href="#3"><i class="fa fa-pencil"></i> <em>documents</em></a></li>
-            <li><a href="#4"><i class="fa fa-image"></i> <em>Work</em></a></li>
-            <li><a href="#5"><i class="fa fa-envelope"></i> <em>Contact</em></a></li>
-          </ul>
-        </nav>
-        
-        <div class="slides">
-          <div class="slide" id="1">
-            <div class="content first-content">
-              <div class="container-fluid">
-                  <div class="col-md-3">
-                      <div class="author-image"><img src="img/author_image.png" alt="Author Image"></div>
-                  </div>
-                  <div class="col-md-9">
-                      <h2>SHAHROZ AHMED</h2>
-                      <p> SEO Services, Social Media Marketing & Digital Strategy | Drive Traffic and Sales Online</p>
-                      <div class="main-btn"><a href="#2">Read More</a></div>
-                      <div class="fb-btn"><a rel="nofollow" href="https://www.youtube.com/@DevMaster-q3g">Youtube</a></div>
-                  </div>
-              </div>
-            </div>
-          </div>
-          <div class="slide" id="2">
-            <div class="content second-content">
-                <div class="container-fluid">
-                    <div class="col-md-6">
-                        <div class="left-content">
-                            <h2>About Us</h2>
-                            <p>Hi! I’m Main Shahroz Ahmed, a passionate digital marketing and SEO specialist helping businesses grow their online presence with data-driven strategies.</p> 
-                            <p>I’m certified in Lead Generation, which allows me to create powerful marketing funnels that attract, engage, and convert potential customers into loyal clients. My expertise covers on-page, off-page, and technical SEO, along with social media management and content marketing.</p>
-                            <p>Whether you need to boost website traffic, generate qualified leads, or build a strong brand identity, I’ll tailor a digital strategy to match your goals and budget.</p>
-                            <p>My mission is simple — to turn your ideas into measurable results and help your business succeed in the digital world. </p>
-                          <div class="main-btn"><a href="#3">Read More</a></div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="right-image">
-                          <img src="img/about_image.jpg" alt="">
-                      </div>
-                    </div>
-                </div>
-            </div>
-          </div>
-          <div class="slide" id="3">
-            <div class="content third-content">
-                <div class="container-fluid">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="first-section">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="left-content">
-                                                <h2>Quisque commodo quam</h2>
-                                                <p>Vestibulum augue ex, finibus sit amet nisi id, maximus ultrices ipsum. Maecenas rhoncus nibh in mauris lobortis, a maximus diam faucibus. In et eros urna. Suspendisse potenti. Pellentesque commodo, neque nec molestie tempus, purus ante feugiat augue.</p>
-                                                <div class="main-btn"><a href="#4">Continue Reading</a></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="right-image">
-                                                <img src="img/first_service.jpg" alt="first service">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="second-section">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="left-image">
-                                                <img src="img/second_service.jpg" alt="second service">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="right-content">
-                                                <h2>Maecenas eu purus eu sapien</h2>
-                                                <p>Sed vitae felis in lorem mollis mollis eget in leo. Donec commodo, ex nec rutrum venenatis, nisi nisl malesuada magna, sed semper ipsum enim a ipsum. Aenean in ante vel mi molestie bibendum. Quisque sit amet lacus in diam pretium faucibus. Cras vel justo lorem.</p>
-                                                <div class="main-btn"><a href="#4">Continue Reading</a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          </div>
-          <div class="slide" id="4">
-            <div class="content fourth-content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-4 col-sm-6">
-                            <div class="item">
-                                <div class="thumb">
-                                    <a href="img/first_big_item.jpg" data-lightbox="image-1"><div class="hover-effect">
-                                        <div class="hover-content">
-                                            <h2>Number One</h2>
-                                            <p>Quisque sit amet lacus in diam pretium faucibus. Cras vel justo lorem.</p>
-                                        </div>
-                                    </div></a>
-                                    <div class="image">
-                                        <img src="img/first_item.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="item">
-                                <div class="thumb">
-                                    <a href="img/second_big_item.jpg" data-lightbox="image-1"><div class="hover-effect">
-                                        <div class="hover-content">
-                                            <h2>Number Two</h2>
-                                            <p>Donec eget dictum tellus. Curabitur a interdum diam. Nulla vestibulum porttitor porta.</p>
-                                        </div>
-                                    </div></a>
-                                    <div class="image">
-                                        <img src="img/second_item.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="item">
-                                <div class="thumb">
-                                    <a href="img/third_big_item.jpg" data-lightbox="image-1"><div class="hover-effect">
-                                        <div class="hover-content">
-                                            <h2>Number Three</h2>
-                                            <p>Cras varius dolor et augue fringilla, eu commodo sapien iaculis.</p>
-                                        </div>
-                                    </div></a>
-                                    <div class="image">
-                                        <img src="img/third_item.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="item">
-                                <div class="thumb">
-                                    <a href="img/fourth_big_item.jpg" data-lightbox="image-1"><div class="hover-effect">
-                                        <div class="hover-content">
-                                            <h2>Number Four</h2>
-                                            <p>Vestibulum augue ex, finibus sit amet nisi id, maximus ultrices ipsum.</p>
-                                        </div>
-                                    </div></a>
-                                    <div class="image">
-                                        <img src="img/fourth_item.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="item">
-                                <div class="thumb">
-                                    <a href="img/fifth_big_item.jpg" data-lightbox="image-1"><div class="hover-effect">
-                                        <div class="hover-content">
-                                            <h2>Fifth Item</h2>
-                                            <p>Donec commodo, ex nec rutrum venenatis, nisi nisl malesuada magna.</p>
-                                        </div>
-                                    </div></a>
-                                    <div class="image">
-                                        <img src="img/fifth_item.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="item">
-                                <div class="thumb">
-                                    <a href="img/sixth_big_item.jpg" data-lightbox="image-1"><div class="hover-effect">
-                                        <div class="hover-content">
-                                            <h2>Sixth Item</h2>
-                                            <p>Maecenas dapibus neque sed nisl consectetur, id semper nisi egestas.</p>
-                                        </div>
-                                    </div></a>
-                                    <div class="image">
-                                        <img src="img/sixth_item.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="item">
-                                <div class="thumb">
-                                    <a href="img/seventh_big_item.jpg" data-lightbox="image-1"><div class="hover-effect">
-                                        <div class="hover-content">
-                                            <h2>Number Seven</h2>
-                                            <p>Etiam aliquet, est id varius fringilla, eros libero pellentesque lectus.</p>
-                                        </div>
-                                    </div></a>
-                                    <div class="image">
-                                        <img src="img/seventh_item.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="item">
-                                <div class="thumb">
-                                    <a href="img/eight_big_item.jpg" data-lightbox="image-1"><div class="hover-effect">
-                                        <div class="hover-content">
-                                            <h2>Number Eight</h2>
-                                            <p>Vestibulum augue ex, finibus sit amet nisi id, maximus ultrices ipsum.</p>
-                                        </div>
-                                    </div></a>
-                                    <div class="image">
-                                        <img src="img/eight_item.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="item">
-                                <div class="thumb">
-                                    <a href="img/ninth_big_item.jpg" data-lightbox="image-1"><div class="hover-effect">
-                                        <div class="hover-content">
-                                            <h2>Number Nine</h2>
-                                            <p>Orci varius natoque penatibus et magnis dis parturient montes.</p>
-                                        </div>
-                                    </div></a>
-                                    <div class="image">
-                                        <img src="img/ninth_item.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="item">
-                                <div class="thumb">
-                                    <a href="img/fifth_big_item.jpg" data-lightbox="image-1"><div class="hover-effect">
-                                        <div class="hover-content">
-                                            <h2>Number Ten</h2>
-                                            <p>Vestibulum augue ex, finibus sit amet nisi id, maximus ultrices ipsum.</p>
-                                        </div>
-                                    </div></a>
-                                    <div class="image">
-                                        <img src="img/fifth_item.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="item">
-                                <div class="thumb">
-                                    <a href="img/first_big_item.jpg" data-lightbox="image-1"><div class="hover-effect">
-                                        <div class="hover-content">
-                                            <h2>Eleventh Item</h2>
-                                            <p>Cras varius dolor et augue fringilla, eu commodo sapien iaculis.</p>
-                                        </div>
-                                    </div></a>
-                                    <div class="image">
-                                        <img src="img/first_item.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="item">
-                                <div class="thumb">
-                                    <a href="img/second_big_item.jpg" data-lightbox="image-1"><div class="hover-effect">
-                                        <div class="hover-content">
-                                            <h2>Twelvth Item</h2>
-                                            <p>Etiam tincidunt magna ex, sit amet lobortis felis bibendum id.</p>
-                                        </div>
-                                    </div></a>
-                                    <div class="image">
-                                        <img src="img/second_item.jpg">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          </div>
-          <div class="slide" id="5">
-            <div class="content fifth-content">
-                <div class="container-fluid">
-                    <div class="col-md-6">
-                        <div id="map">
-    <!-- How to change your own map point
-            1. Go to Google Maps
-            2. Click on your location point
-            3. Click "Share" and choose "Embed map" tab
-            4. Copy only URL and paste it within the src="" field below
-	-->
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3647.3030413476204!2d100.5641230193719!3d13.757206847615207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf51ce6427b7918fc!2sG+Tower!5e0!3m2!1sen!2sth!4v1510722015945" width="100%" height="500px" frameborder="0" style="border:0" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <form id="contact" action="" method="post">
-                            <div class="row">
-                                <div class="col-md-12">
-                                  <fieldset>
-                                    <input name="name" type="text" class="form-control" id="name" placeholder="Your name..." required="">
-                                  </fieldset>
-                                </div>
-                                <div class="col-md-12">
-                                  <fieldset>
-                                    <input name="email" type="email" class="form-control" id="email" placeholder="Your email..." required="">
-                                  </fieldset>
-                                </div>
-                                 <div class="col-md-12">
-                                  <fieldset>
-                                    <input name="subject" type="text" class="form-control" id="subject" placeholder="Subject..." required="">
-                                  </fieldset>
-                                </div>
-                                <div class="col-md-12">
-                                  <fieldset>
-                                    <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your message..." required=""></textarea>
-                                  </fieldset>
-                                </div>
-                                <div class="col-md-12">
-                                  <fieldset>
-                                    <button type="submit" id="form-submit" class="btn">Send Now</button>
-                                  </fieldset>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-          </div>
+   </nav><!-- Hero Section -->
+   <section id="home" class="min-h-screen w-full flex items-center justify-center px-6 py-20 gradient-bg">
+    <div class="max-w-5xl mx-auto text-center">
+     <div class="inline-block px-4 py-2 rounded-full mb-6 fade-in-up stagger-1" id="hero-badge"><span id="tagline" class="font-semibold"></span>
+     </div>
+     <h1 id="hero-title" class="text-5xl md:text-7xl font-black mb-6 fade-in-up stagger-2"></h1>
+     <p id="hero-description" class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto fade-in-up stagger-3"></p>
+     <div class="flex gap-4 justify-center fade-in-up stagger-4"><a href="#projects" id="cta-primary" class="px-8 py-4 rounded-full font-bold text-lg transition-all hover:scale-105 active:scale-95 shadow-lg"></a> <a href="#contact" id="cta-secondary" class="px-8 py-4 rounded-full font-bold text-lg border-2 transition-all hover:scale-105 active:scale-95"></a>
+     </div><!-- Floating Icons -->
+     <div class="mt-16 flex justify-center gap-8 fade-in-up stagger-5">
+      <div class="floating p-6 rounded-2xl shadow-xl" style="animation-delay: 0s;"><span class="text-4xl">💻</span>
+      </div>
+      <div class="floating p-6 rounded-2xl shadow-xl" style="animation-delay: 0.5s;"><span class="text-4xl">🎨</span>
+      </div>
+      <div class="floating p-6 rounded-2xl shadow-xl" style="animation-delay: 1s;"><span class="text-4xl">⚡</span>
+      </div>
+     </div>
+    </div>
+   </section><!-- Projects Section -->
+   <section id="projects" class="w-full px-6 py-20">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16">
+      <h2 id="projects-heading" class="text-4xl md:text-5xl font-black mb-4"></h2>
+      <div class="w-24 h-1 mx-auto rounded-full"></div>
+     </div><!-- Filter Tabs -->
+     <div class="flex justify-center gap-4 mb-12 flex-wrap" id="filter-tabs"><button class="filter-btn px-6 py-3 rounded-full font-bold transition-all hover:scale-105 active:scale-95" data-filter="all">All Projects</button> <button class="filter-btn px-6 py-3 rounded-full font-semibold transition-all hover:scale-105 active:scale-95" data-filter="web">Automation &amp; SEO</button> <button class="filter-btn px-6 py-3 rounded-full font-semibold transition-all hover:scale-105 active:scale-95" data-filter="design">Data &amp; Analytics</button> <button class="filter-btn px-6 py-3 rounded-full font-semibold transition-all hover:scale-95 active:scale-95" data-filter="mobile">AI &amp; Chatbots</button>
+     </div><!-- Projects Grid -->
+     <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"><!-- Projects will be dynamically inserted -->
+     </div>
+    </div>
+   </section><!-- AI Automation Services Section -->
+   <section id="ai-services" class="w-full px-6 py-20">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-black mb-4">AI Automation &amp; Digital Marketing Services</h2>
+      <p class="text-xl max-w-3xl mx-auto mb-6">Transform your business with intelligent automation and data-driven marketing strategies</p>
+      <div class="w-24 h-1 mx-auto rounded-full" id="services-divider"></div>
+     </div><!-- Services Grid -->
+     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"><!-- Service Card 1 -->
+      <div class="service-card p-8 rounded-3xl shadow-2xl transition-all hover:scale-105">
+       <div class="text-6xl mb-4">
+        🤖
+       </div>
+       <h3 class="text-2xl font-bold mb-4">AI Chatbot Development</h3>
+       <p class="mb-6 leading-relaxed opacity-90">Custom AI-powered chatbots that handle customer inquiries 24/7, qualify leads, and improve customer satisfaction using GPT-4 and advanced NLP.</p>
+       <ul class="space-y-2 mb-6">
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>24/7 customer support automation</span></li>
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>Lead qualification &amp; routing</span></li>
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>Multi-platform integration</span></li>
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>Analytics &amp; insights dashboard</span></li>
+       </ul>
+       <div class="service-price font-bold text-2xl mb-2">
+        From $2,500
+       </div>
+       <div class="text-sm opacity-70">
+        One-time setup + monthly maintenance
+       </div>
+      </div><!-- Service Card 2 -->
+      <div class="service-card p-8 rounded-3xl shadow-2xl transition-all hover:scale-105">
+       <div class="text-6xl mb-4">
+        📈
+       </div>
+       <h3 class="text-2xl font-bold mb-4">SEO Optimization</h3>
+       <p class="mb-6 leading-relaxed opacity-90">Comprehensive SEO strategies that drive organic traffic, improve rankings, and increase conversions through data-driven optimization.</p>
+       <ul class="space-y-2 mb-6">
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>Technical SEO audit &amp; fixes</span></li>
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>Keyword research &amp; strategy</span></li>
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>Content optimization</span></li>
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>Link building campaigns</span></li>
+       </ul>
+       <div class="service-price font-bold text-2xl mb-2">
+        From $1,500/mo
+       </div>
+       <div class="text-sm opacity-70">
+        Monthly retainer packages
+       </div>
+      </div><!-- Service Card 3 -->
+      <div class="service-card p-8 rounded-3xl shadow-2xl transition-all hover:scale-105">
+       <div class="text-6xl mb-4">
+        🔄
+       </div>
+       <h3 class="text-2xl font-bold mb-4">Marketing Automation</h3>
+       <p class="mb-6 leading-relaxed opacity-90">Automate repetitive marketing tasks, personalize customer journeys, and scale your campaigns with intelligent workflows.</p>
+       <ul class="space-y-2 mb-6">
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>Email marketing automation</span></li>
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>Social media scheduling</span></li>
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>Lead nurturing sequences</span></li>
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>Performance tracking</span></li>
+       </ul>
+       <div class="service-price font-bold text-2xl mb-2">
+        From $2,000
+       </div>
+       <div class="text-sm opacity-70">
+        Setup + monthly management
+       </div>
+      </div><!-- Service Card 4 -->
+      <div class="service-card p-8 rounded-3xl shadow-2xl transition-all hover:scale-105">
+       <div class="text-6xl mb-4">
+        🕷️
+       </div>
+       <h3 class="text-2xl font-bold mb-4">Web Scraping &amp; Data Mining</h3>
+       <p class="mb-6 leading-relaxed opacity-90">Extract valuable data from websites, monitor competitors, and gain market insights with custom Python-based scraping solutions.</p>
+       <ul class="space-y-2 mb-6">
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>Custom scraping scripts</span></li>
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>Competitor monitoring</span></li>
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>Price tracking automation</span></li>
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>Data cleaning &amp; analysis</span></li>
+       </ul>
+       <div class="service-price font-bold text-2xl mb-2">
+        From $1,000
+       </div>
+       <div class="text-sm opacity-70">
+        Per project basis
+       </div>
+      </div><!-- Service Card 5 -->
+      <div class="service-card p-8 rounded-3xl shadow-2xl transition-all hover:scale-105">
+       <div class="text-6xl mb-4">
+        📊
+       </div>
+       <h3 class="text-2xl font-bold mb-4">Analytics &amp; Reporting</h3>
+       <p class="mb-6 leading-relaxed opacity-90">Turn data into actionable insights with custom dashboards, automated reports, and predictive analytics powered by Python and AI.</p>
+       <ul class="space-y-2 mb-6">
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>Custom analytics dashboards</span></li>
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>Automated report generation</span></li>
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>Predictive analytics models</span></li>
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>KPI tracking &amp; alerts</span></li>
+       </ul>
+       <div class="service-price font-bold text-2xl mb-2">
+        From $1,800
+       </div>
+       <div class="text-sm opacity-70">
+        Setup + maintenance plans
+       </div>
+      </div><!-- Service Card 6 -->
+      <div class="service-card p-8 rounded-3xl shadow-2xl transition-all hover:scale-105">
+       <div class="text-6xl mb-4">
+        🎯
+       </div>
+       <h3 class="text-2xl font-bold mb-4">Content Generation AI</h3>
+       <p class="mb-6 leading-relaxed opacity-90">Scale your content production with AI-powered writing tools that create SEO-optimized articles, product descriptions, and social posts.</p>
+       <ul class="space-y-2 mb-6">
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>AI blog post generation</span></li>
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>Product description writer</span></li>
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>Social media content</span></li>
+        <li class="flex items-start gap-2"><span class="service-check">✓</span> <span>SEO optimization built-in</span></li>
+       </ul>
+       <div class="service-price font-bold text-2xl mb-2">
+        From $1,200/mo
+       </div>
+       <div class="text-sm opacity-70">
+        Subscription-based access
+       </div>
+      </div>
+     </div><!-- Why Choose Section -->
+     <div class="mt-20 p-12 rounded-3xl" id="why-choose-section">
+      <div class="text-center mb-12">
+       <h3 class="text-3xl md:text-4xl font-black mb-4">Why Choose My Services?</h3>
+       <p class="text-xl opacity-90">Combining technical expertise with marketing intelligence</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+       <div class="text-center">
+        <div class="text-5xl mb-4">
+         ⚡
         </div>
-
-        <div class="footer">
-          <div class="content">
-              <p>Copyright &copy; 2026 Shahroz Ahmed</p>
-          </div>
+        <h4 class="text-xl font-bold mb-2">Fast Turnaround</h4>
+        <p class="opacity-80">Most projects delivered within 2-4 weeks</p>
+       </div>
+       <div class="text-center">
+        <div class="text-5xl mb-4">
+         💎
         </div>
- 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+        <h4 class="text-xl font-bold mb-2">Quality Guaranteed</h4>
+        <p class="opacity-80">Clean code, best practices, tested solutions</p>
+       </div>
+       <div class="text-center">
+        <div class="text-5xl mb-4">
+         🔧
+        </div>
+        <h4 class="text-xl font-bold mb-2">Ongoing Support</h4>
+        <p class="opacity-80">Maintenance &amp; updates included</p>
+       </div>
+       <div class="text-center">
+        <div class="text-5xl mb-4">
+         📈
+        </div>
+        <h4 class="text-xl font-bold mb-2">Results-Driven</h4>
+        <p class="opacity-80">Focus on ROI and measurable outcomes</p>
+       </div>
+      </div>
+     </div><!-- CTA Section -->
+     <div class="mt-16 text-center">
+      <h3 class="text-3xl font-black mb-6">Ready to Automate Your Business?</h3>
+      <p class="text-xl mb-8 max-w-2xl mx-auto">Let's discuss how AI automation and smart marketing can transform your business operations and accelerate growth.</p>
+      <div class="flex gap-4 justify-center flex-wrap"><a href="#contact" class="cta-services-primary px-8 py-4 rounded-full font-bold text-lg transition-all hover:scale-105 active:scale-95 shadow-lg"> Get Free Consultation </a> <a href="#projects" class="cta-services-secondary px-8 py-4 rounded-full font-bold text-lg border-2 transition-all hover:scale-105 active:scale-95"> View Case Studies </a>
+      </div>
+     </div>
+    </div>
+   </section><!-- About Section -->
+   <section id="about" class="w-full px-6 py-20">
+    <div class="max-w-6xl mx-auto">
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div class="slide-in-left">
+       <div class="relative">
+        <div class="w-full aspect-square rounded-3xl overflow-hidden shadow-2xl">
+         <div class="w-full h-full flex items-center justify-center text-9xl">
+          👨‍💻
+         </div>
+        </div>
+        <div class="absolute -bottom-6 -right-6 p-6 rounded-2xl shadow-xl"><span class="text-5xl">✨</span>
+        </div>
+       </div>
+      </div>
+      <div class="slide-in-right">
+       <h2 id="about-heading" class="text-4xl md:text-5xl font-black mb-6"></h2>
+       <p id="about-text" class="text-lg mb-8 leading-relaxed"></p><!-- Skills -->
+       <div class="mb-8">
+        <h3 class="text-2xl font-bold mb-4">Skills &amp; Technologies</h3>
+        <div class="flex flex-wrap gap-3" id="skills-container"><!-- Skills will be dynamically inserted -->
+        </div>
+       </div><!-- Stats -->
+       <div class="grid grid-cols-3 gap-6">
+        <div class="text-center p-4 rounded-2xl">
+         <div class="text-3xl font-black mb-1">
+          50+
+         </div>
+         <div class="text-sm font-semibold opacity-80">
+          Projects
+         </div>
+        </div>
+        <div class="text-center p-4 rounded-2xl">
+         <div class="text-3xl font-black mb-1">
+          5+
+         </div>
+         <div class="text-sm font-semibold opacity-80">
+          Years Exp
+         </div>
+        </div>
+        <div class="text-center p-4 rounded-2xl">
+         <div class="text-3xl font-black mb-1">
+          100%
+         </div>
+         <div class="text-sm font-semibold opacity-80">
+          Satisfaction
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Contact Section -->
+   <section id="contact" class="w-full px-6 py-20">
+    <div class="max-w-4xl mx-auto">
+     <div class="text-center mb-12">
+      <h2 id="contact-heading" class="text-4xl md:text-5xl font-black mb-4"></h2>
+      <p id="contact-subtitle" class="text-xl"></p>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12"><!-- Contact Form -->
+      <div class="p-8 rounded-3xl shadow-2xl">
+       <form id="contact-form">
+        <div class="mb-6"><label for="name" class="block font-bold mb-2">Name</label> <input type="text" id="name" name="name" required class="input-field w-full px-4 py-3 rounded-xl border-2 outline-none" placeholder="Your name">
+        </div>
+        <div class="mb-6"><label for="email" class="block font-bold mb-2">Email</label> <input type="email" id="email" name="email" required class="input-field w-full px-4 py-3 rounded-xl border-2 outline-none" placeholder="your@email.com">
+        </div>
+        <div class="mb-6"><label for="message" class="block font-bold mb-2">Message</label> <textarea id="message" name="message" required rows="4" class="input-field w-full px-4 py-3 rounded-xl border-2 outline-none resize-none" placeholder="Your message..."></textarea>
+        </div><button type="submit" id="submit-btn" class="w-full py-4 rounded-xl font-bold text-lg transition-all hover:scale-105 active:scale-95 shadow-lg"> Send Message 🚀 </button>
+       </form>
+       <div id="form-message" class="mt-4 p-4 rounded-xl text-center font-bold hidden"></div>
+      </div><!-- Contact Info -->
+      <div class="space-y-6">
+       <div class="p-6 rounded-3xl shadow-xl transition-all hover:scale-105">
+        <div class="text-4xl mb-3">
+         📧
+        </div>
+        <h3 class="text-xl font-bold mb-2">Email</h3><a href="mailto:hello@portfolio.com" class="hover:underline">hello@portfolio.com</a>
+       </div>
+       <div class="p-6 rounded-3xl shadow-xl transition-all hover:scale-105">
+        <div class="text-4xl mb-3">
+         📱
+        </div>
+        <h3 class="text-xl font-bold mb-2">Phone</h3><a href="tel:+1234567890" class="hover:underline">+1 (234) 567-890</a>
+       </div>
+       <div class="p-6 rounded-3xl shadow-xl transition-all hover:scale-105">
+        <div class="text-4xl mb-3">
+         📍
+        </div>
+        <h3 class="text-xl font-bold mb-2">Location</h3>
+        <p>San Francisco, CA</p>
+       </div><!-- Social Links -->
+       <div class="flex gap-4 justify-center pt-6"><a href="https://github.com" target="_blank" rel="noopener noreferrer" class="w-12 h-12 flex items-center justify-center rounded-full text-2xl transition-all hover:scale-110"> 💻 </a> <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="w-12 h-12 flex items-center justify-center rounded-full text-2xl transition-all hover:scale-110"> 💼 </a> <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="w-12 h-12 flex items-center justify-center rounded-full text-2xl transition-all hover:scale-110"> 🐦 </a> <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer" class="w-12 h-12 flex items-center justify-center rounded-full text-2xl transition-all hover:scale-110"> 🎨 </a>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Footer -->
+   <footer class="w-full px-6 py-8 border-t-2">
+    <div class="max-w-7xl mx-auto text-center">
+     <p id="footer-text" class="font-semibold"></p>
+    </div>
+   </footer><!-- Back to Top Button --> <button id="back-to-top" class="fixed bottom-8 right-8 w-14 h-14 rounded-full shadow-2xl flex items-center justify-center text-2xl opacity-0 pointer-events-none transition-all z-40"> ⬆️ </button> <!-- Project Modal -->
+   <div id="project-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center p-6 opacity-0 pointer-events-none transition-all duration-300 z-50">
+    <div id="modal-content" class="max-w-4xl w-full rounded-3xl shadow-2xl transform scale-90 transition-all duration-300 overflow-y-auto max-h-screen">
+     <div class="p-8">
+      <div class="flex justify-between items-start mb-6">
+       <h3 id="modal-title" class="text-3xl font-black"></h3><button id="modal-close" class="text-4xl leading-none hover:scale-110 transition-all">×</button>
+      </div>
+      <div id="modal-image" class="w-full h-64 rounded-2xl mb-6 flex items-center justify-center text-8xl shadow-lg"></div>
+      <p id="modal-description" class="text-lg mb-6 leading-relaxed"></p>
+      <div class="mb-6">
+       <h4 class="text-xl font-bold mb-3">Technologies Used</h4>
+       <div id="modal-tags" class="flex flex-wrap gap-2"></div>
+      </div>
+      <div class="mb-6">
+       <h4 class="text-xl font-bold mb-3">Key Features</h4>
+       <ul id="modal-features" class="space-y-2"></ul>
+      </div>
+      <div class="flex gap-4"><a id="modal-live-link" href="#" target="_blank" rel="noopener noreferrer" class="flex-1 py-3 rounded-xl font-bold text-center transition-all hover:scale-105 active:scale-95 shadow-lg"> View Live 🚀 </a> <a id="modal-github-link" href="#" target="_blank" rel="noopener noreferrer" class="flex-1 py-3 rounded-xl font-bold text-center border-2 transition-all hover:scale-105 active:scale-95"> View Code 💻 </a>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+    // Projects data
+    const projectsData = [
+      {
+        id: 1,
+        title: "AI Content Generator Platform",
+        category: "web",
+        description: "Automated content creation system using GPT-4 API that generates SEO-optimized blog posts, product descriptions, and social media content.",
+        fullDescription: "Built a comprehensive AI-powered content generation platform that helps marketing teams scale their content production. The system uses advanced prompt engineering and integrates with popular CMS platforms for seamless publishing.",
+        icon: "🤖",
+        tags: ["Python", "OpenAI API", "Flask", "PostgreSQL"],
+        features: ["GPT-4 integration for natural content", "SEO keyword optimization", "Multi-language support", "CMS integration (WordPress, Shopify)", "Content scheduling & publishing"],
+        liveLink: "https://example.com",
+        githubLink: "https://github.com"
+      },
+      {
+        id: 2,
+        title: "E-commerce SEO Automation Tool",
+        category: "web",
+        description: "Python-based tool that automatically optimizes product pages, generates meta tags, and monitors keyword rankings for e-commerce websites.",
+        fullDescription: "Developed an intelligent SEO automation system that analyzes product pages, generates optimized titles and descriptions, manages structured data, and tracks rankings across multiple search engines.",
+        icon: "📈",
+        tags: ["Python", "Selenium", "BeautifulSoup", "Google APIs"],
+        features: ["Automated meta tag generation", "Keyword rank tracking", "Competitor analysis", "Schema markup automation", "Performance reporting dashboard"],
+        liveLink: "https://example.com",
+        githubLink: "https://github.com"
+      },
+      {
+        id: 3,
+        title: "Social Media Automation Suite",
+        category: "web",
+        description: "Multi-platform social media management system that schedules posts, tracks engagement, and provides AI-powered content suggestions.",
+        fullDescription: "Created a comprehensive social media automation platform that manages multiple accounts across Twitter, LinkedIn, and Instagram. Features AI-generated captions, optimal posting times, and detailed analytics.",
+        icon: "📱",
+        tags: ["Python", "Django", "Redis", "Twitter API"],
+        features: ["Multi-platform scheduling", "AI caption generation", "Engagement analytics", "Hashtag optimization", "Auto-response system"],
+        liveLink: "https://example.com",
+        githubLink: "https://github.com"
+      },
+      {
+        id: 4,
+        title: "Web Scraping for Market Intelligence",
+        category: "design",
+        description: "Advanced web scraping system that monitors competitor pricing, product availability, and market trends in real-time.",
+        fullDescription: "Built a robust web scraping infrastructure that collects data from multiple e-commerce sites, processes it using ML algorithms, and provides actionable market insights through an interactive dashboard.",
+        icon: "🕷️",
+        tags: ["Python", "Scrapy", "Pandas", "MongoDB"],
+        features: ["Real-time price monitoring", "Product availability tracking", "Competitor analysis", "Trend prediction models", "Custom alert system"],
+        liveLink: "https://example.com",
+        githubLink: "https://github.com"
+      },
+      {
+        id: 5,
+        title: "Email Marketing Automation",
+        category: "web",
+        description: "Intelligent email marketing platform with AI-powered segmentation, personalization, and optimization for maximum engagement.",
+        fullDescription: "Developed an advanced email marketing system that uses machine learning to segment audiences, personalize content, optimize send times, and predict campaign performance.",
+        icon: "📧",
+        tags: ["Python", "FastAPI", "TensorFlow", "SendGrid"],
+        features: ["AI audience segmentation", "Dynamic content personalization", "A/B testing automation", "Predictive analytics", "Behavioral triggers"],
+        liveLink: "https://example.com",
+        githubLink: "https://github.com"
+      },
+      {
+        id: 6,
+        title: "Lead Generation Chatbot",
+        category: "mobile",
+        description: "Conversational AI chatbot that qualifies leads, answers FAQs, and integrates with CRM systems for automated follow-up.",
+        fullDescription: "Created an intelligent chatbot using natural language processing that engages website visitors, qualifies leads based on custom criteria, and automatically adds them to marketing workflows.",
+        icon: "💬",
+        tags: ["Python", "NLP", "Dialogflow", "CRM APIs"],
+        features: ["Natural language understanding", "Lead qualification scoring", "CRM integration (HubSpot, Salesforce)", "Multi-language support", "Analytics dashboard"],
+        liveLink: "https://example.com",
+        githubLink: "https://github.com"
+      }
+    ];
 
-    <script src="js/vendor/bootstrap.min.js"></script>
-    
-    <script src="js/datepicker.js"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/main.js"></script>
+    // Skills data
+    const skillsData = [
+      "Python", "Django", "FastAPI", "Flask", "TensorFlow",
+      "SEO Optimization", "Google Analytics", "Keyword Research", "Content Strategy",
+      "AI Automation", "Machine Learning", "Data Analysis", "Web Scraping",
+      "Google Ads", "Social Media Marketing", "Marketing Automation"
+    ];
 
-    <script type="text/javascript">
-    $(document).ready(function() {
+    // Default config
+    const defaultConfig = {
+      site_name: "Your Name",
+      tagline: "🐍 Python Developer | 📈 SEO Specialist | 🤖 AI Automation Expert",
+      hero_title: "Scaling Businesses with Python, SEO & AI Automation",
+      hero_description: "Expert Python developer and SEO specialist helping businesses grow through intelligent automation, data-driven marketing strategies, and cutting-edge AI solutions.",
+      cta_button: "View My Work",
+      projects_heading: "Featured Projects",
+      about_heading: "About Me",
+      about_text: "I'm a Python developer and SEO specialist with expertise in AI automation and digital marketing. I help businesses scale by building intelligent automation systems, optimizing their online presence, and implementing data-driven marketing strategies. My passion lies in combining technical expertise with marketing insights to deliver measurable results.",
+      contact_heading: "Let's Work Together",
+      contact_subtitle: "Have a project in mind? Let's bring your ideas to life!",
+      footer_text: "© 2024 Your Name. Automating success, one Python script at a time 🐍",
+      background_color: "#0a0a0f",
+      surface_color: "#1a1a2e",
+      text_color: "#e0e0e0",
+      primary_action_color: "#6366f1",
+      secondary_action_color: "#8b5cf6"
+    };
 
-        
+    let config = { ...defaultConfig };
+    let currentFilter = 'all';
 
-        // navigation click actions 
-        $('.scroll-link').on('click', function(event){
-            event.preventDefault();
-            var sectionID = $(this).attr("data-id");
-            scrollToID('#' + sectionID, 750);
+    // Initialize
+    function init() {
+      updateTextContent();
+      renderProjects();
+      renderSkills();
+      setupEventListeners();
+      applyStyles();
+      setupScrollEffects();
+    }
+
+    // Update text content
+    function updateTextContent() {
+      document.getElementById('nav-logo').textContent = config.site_name || defaultConfig.site_name;
+      document.getElementById('tagline').textContent = config.tagline || defaultConfig.tagline;
+      document.getElementById('hero-title').textContent = config.hero_title || defaultConfig.hero_title;
+      document.getElementById('hero-description').textContent = config.hero_description || defaultConfig.hero_description;
+      document.getElementById('cta-primary').textContent = config.cta_button || defaultConfig.cta_button;
+      document.getElementById('cta-secondary').textContent = "Get in Touch";
+      document.getElementById('projects-heading').textContent = config.projects_heading || defaultConfig.projects_heading;
+      document.getElementById('about-heading').textContent = config.about_heading || defaultConfig.about_heading;
+      document.getElementById('about-text').textContent = config.about_text || defaultConfig.about_text;
+      document.getElementById('contact-heading').textContent = config.contact_heading || defaultConfig.contact_heading;
+      document.getElementById('contact-subtitle').textContent = config.contact_subtitle || defaultConfig.contact_subtitle;
+      document.getElementById('footer-text').textContent = config.footer_text || defaultConfig.footer_text;
+    }
+
+    // Apply styles
+    function applyStyles() {
+      const app = document.getElementById('app');
+      app.style.background = config.background_color;
+      app.style.color = config.text_color;
+
+      // Navbar
+      const navbar = document.getElementById('navbar');
+      navbar.style.background = `${config.background_color}cc`;
+      navbar.style.borderBottom = `1px solid ${config.surface_color}`;
+      
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.style.color = config.text_color;
+      });
+      
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('mouseenter', function() {
+          this.style.color = config.primary_action_color;
         });
-        // scroll to top action
-        $('.scroll-top').on('click', function(event) {
-            event.preventDefault();
-            $('html, body').animate({scrollTop:0}, 'slow');         
+        link.addEventListener('mouseleave', function() {
+          this.style.color = config.text_color;
         });
-        // mobile nav toggle
-        $('#nav-toggle').on('click', function (event) {
-            event.preventDefault();
-            $('#main-nav').toggleClass("open");
-        });
-    });
-    // scroll function
-    function scrollToID(id, speed){
-        var offSet = 0;
-        var targetOffset = $(id).offset().top - offSet;
-        var mainNav = $('#main-nav');
-        $('html,body').animate({scrollTop:targetOffset}, speed);
-        if (mainNav.hasClass("open")) {
-            mainNav.css("height", "1px").removeClass("in").addClass("collapse");
-            mainNav.removeClass("open");
+      });
+
+      // Hero badge
+      const heroBadge = document.getElementById('hero-badge');
+      heroBadge.style.background = config.surface_color;
+      heroBadge.style.color = config.primary_action_color;
+
+      // Floating icons
+      document.querySelectorAll('.floating').forEach(icon => {
+        icon.style.background = config.surface_color;
+      });
+
+      // CTA buttons
+      const ctaPrimary = document.getElementById('cta-primary');
+      ctaPrimary.style.background = config.primary_action_color;
+      ctaPrimary.style.color = config.background_color;
+
+      const ctaSecondary = document.getElementById('cta-secondary');
+      ctaSecondary.style.borderColor = config.secondary_action_color;
+      ctaSecondary.style.color = config.secondary_action_color;
+
+      // Divider under heading
+      document.querySelector('#projects .w-24').style.background = config.primary_action_color;
+
+      // Filter buttons
+      document.querySelectorAll('.filter-btn').forEach((btn, index) => {
+        if (index === 0 && btn.dataset.filter === currentFilter) {
+          btn.style.background = config.primary_action_color;
+          btn.style.color = config.background_color;
+        } else {
+          btn.style.background = config.surface_color;
+          btn.style.color = config.text_color;
         }
+      });
+
+      // Services divider
+      document.getElementById('services-divider').style.background = config.primary_action_color;
+
+      // Service cards
+      document.querySelectorAll('.service-card').forEach(card => {
+        card.style.background = config.surface_color;
+        card.style.color = config.text_color;
+      });
+
+      document.querySelectorAll('.service-check').forEach(check => {
+        check.style.color = config.primary_action_color;
+      });
+
+      document.querySelectorAll('.service-price').forEach(price => {
+        price.style.color = config.primary_action_color;
+      });
+
+      // Why choose section
+      const whyChooseSection = document.getElementById('why-choose-section');
+      whyChooseSection.style.background = config.surface_color;
+      whyChooseSection.style.color = config.text_color;
+
+      // Services CTA buttons
+      const ctaServicesPrimary = document.querySelector('.cta-services-primary');
+      if (ctaServicesPrimary) {
+        ctaServicesPrimary.style.background = config.primary_action_color;
+        ctaServicesPrimary.style.color = config.background_color;
+      }
+
+      const ctaServicesSecondary = document.querySelector('.cta-services-secondary');
+      if (ctaServicesSecondary) {
+        ctaServicesSecondary.style.borderColor = config.secondary_action_color;
+        ctaServicesSecondary.style.color = config.secondary_action_color;
+      }
+
+      // Stats
+      document.querySelectorAll('#about .grid.grid-cols-3 > div').forEach(stat => {
+        stat.style.background = config.surface_color;
+        stat.style.color = config.text_color;
+      });
+
+      // Contact cards
+      document.querySelectorAll('#contact .p-6.rounded-3xl').forEach(card => {
+        card.style.background = config.surface_color;
+        card.style.color = config.text_color;
+      });
+
+      // Social links
+      document.querySelectorAll('#contact .flex.gap-4.justify-center a').forEach(link => {
+        link.style.background = config.surface_color;
+      });
+
+      // Form
+      const formContainer = document.querySelector('#contact-form').parentElement;
+      formContainer.style.background = config.surface_color;
+
+      document.querySelectorAll('.input-field').forEach(input => {
+        input.style.background = config.background_color;
+        input.style.borderColor = config.surface_color;
+        input.style.color = config.text_color;
+        
+        input.addEventListener('focus', function() {
+          this.style.borderColor = config.primary_action_color;
+        });
+        
+        input.addEventListener('blur', function() {
+          this.style.borderColor = config.surface_color;
+        });
+      });
+
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.style.background = config.primary_action_color;
+      submitBtn.style.color = config.background_color;
+
+      // Footer
+      document.querySelector('footer').style.borderColor = config.surface_color;
+
+      // Back to top button
+      const backToTop = document.getElementById('back-to-top');
+      backToTop.style.background = config.primary_action_color;
+      backToTop.style.color = config.background_color;
+
+      // Modal
+      const modalContent = document.getElementById('modal-content');
+      modalContent.style.background = config.surface_color;
+      modalContent.style.color = config.text_color;
     }
-    if (typeof console === "undefined") {
-        console = {
-            log: function() { }
-        };
+
+    // Render projects
+    function renderProjects() {
+      const grid = document.getElementById('projects-grid');
+      grid.innerHTML = '';
+
+      const filteredProjects = currentFilter === 'all' 
+        ? projectsData 
+        : projectsData.filter(p => p.category === currentFilter);
+
+      filteredProjects.forEach((project, index) => {
+        const card = document.createElement('div');
+        card.className = 'project-card p-6 rounded-3xl shadow-2xl cursor-pointer fade-in-up';
+        card.style.background = config.surface_color;
+        card.style.animationDelay = `${index * 0.1}s`;
+        
+        card.innerHTML = `
+          <div class="text-6xl mb-4">${project.icon}</div>
+          <h3 class="text-2xl font-bold mb-3">${project.title}</h3>
+          <p class="mb-4 opacity-80 leading-relaxed">${project.description}</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            ${project.tags.map(tag => `
+              <span class="skill-tag px-3 py-1 rounded-full text-sm font-semibold" style="background: ${config.background_color}; color: ${config.primary_action_color};">
+                ${tag}
+              </span>
+            `).join('')}
+          </div>
+          <button class="font-bold flex items-center gap-2 hover:gap-3 transition-all" style="color: ${config.primary_action_color};">
+            View Details <span>→</span>
+          </button>
+        `;
+
+        card.addEventListener('click', () => openProjectModal(project));
+        grid.appendChild(card);
+      });
     }
-    </script>
-</body>
+
+    // Render skills
+    function renderSkills() {
+      const container = document.getElementById('skills-container');
+      container.innerHTML = '';
+
+      skillsData.forEach(skill => {
+        const tag = document.createElement('span');
+        tag.className = 'skill-tag px-4 py-2 rounded-full font-semibold';
+        tag.style.background = config.surface_color;
+        tag.style.color = config.text_color;
+        tag.textContent = skill;
+        container.appendChild(tag);
+      });
+    }
+
+    // Filter projects
+    function filterProjects(filter) {
+      currentFilter = filter;
+      
+      // Update button styles
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        if (btn.dataset.filter === filter) {
+          btn.style.background = config.primary_action_color;
+          btn.style.color = config.background_color;
+        } else {
+          btn.style.background = config.surface_color;
+          btn.style.color = config.text_color;
+        }
+      });
+
+      renderProjects();
+    }
+
+    // Open project modal
+    function openProjectModal(project) {
+      const modal = document.getElementById('project-modal');
+      
+      document.getElementById('modal-title').textContent = project.title;
+      document.getElementById('modal-image').textContent = project.icon;
+      document.getElementById('modal-image').style.background = config.background_color;
+      document.getElementById('modal-description').textContent = project.fullDescription;
+      
+      const tagsContainer = document.getElementById('modal-tags');
+      tagsContainer.innerHTML = project.tags.map(tag => `
+        <span class="px-3 py-1 rounded-full text-sm font-semibold" style="background: ${config.background_color}; color: ${config.primary_action_color};">
+          ${tag}
+        </span>
+      `).join('');
+
+      const featuresContainer = document.getElementById('modal-features');
+      featuresContainer.innerHTML = project.features.map(feature => `
+        <li class="flex items-start gap-2">
+          <span style="color: ${config.primary_action_color};">✓</span>
+          <span>${feature}</span>
+        </li>
+      `).join('');
+
+      const liveLink = document.getElementById('modal-live-link');
+      liveLink.href = project.liveLink;
+      liveLink.style.background = config.primary_action_color;
+      liveLink.style.color = config.background_color;
+
+      const githubLink = document.getElementById('modal-github-link');
+      githubLink.href = project.githubLink;
+      githubLink.style.borderColor = config.secondary_action_color;
+      githubLink.style.color = config.secondary_action_color;
+
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100');
+      document.getElementById('modal-content').style.transform = 'scale(1)';
+    }
+
+    // Close project modal
+    function closeProjectModal() {
+      const modal = document.getElementById('project-modal');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      modal.classList.remove('opacity-100');
+      document.getElementById('modal-content').style.transform = 'scale(0.9)';
+    }
+
+    // Handle form submission
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      
+      const formMessage = document.getElementById('form-message');
+      formMessage.textContent = "✅ Thank you! Your message has been sent successfully.";
+      formMessage.style.background = config.surface_color;
+      formMessage.style.color = config.primary_action_color;
+      formMessage.classList.remove('hidden');
+      
+      document.getElementById('contact-form').reset();
+      
+      setTimeout(() => {
+        formMessage.classList.add('hidden');
+      }, 5000);
+    }
+
+    // Setup scroll effects
+    function setupScrollEffects() {
+      const backToTop = document.getElementById('back-to-top');
+      
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+          backToTop.style.opacity = '1';
+          backToTop.style.pointerEvents = 'auto';
+        } else {
+          backToTop.style.opacity = '0';
+          backToTop.style.pointerEvents = 'none';
+        }
+      });
+    }
+
+    // Setup event listeners
+    function setupEventListeners() {
+      // Filter buttons
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => filterProjects(btn.dataset.filter));
+      });
+
+      // Modal close
+      document.getElementById('modal-close').addEventListener('click', closeProjectModal);
+      document.getElementById('project-modal').addEventListener('click', (e) => {
+        if (e.target.id === 'project-modal') closeProjectModal();
+      });
+
+      // Form submission
+      document.getElementById('contact-form').addEventListener('submit', handleFormSubmit);
+
+      // Back to top
+      document.getElementById('back-to-top').addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // Smooth scroll for nav links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+    }
+
+    // Initialize Element SDK
+    async function initElementSdk() {
+      if (window.elementSdk) {
+        await window.elementSdk.init({
+          defaultConfig,
+          onConfigChange: async (newConfig) => {
+            config = { ...defaultConfig, ...newConfig };
+            updateTextContent();
+            applyStyles();
+          },
+          mapToCapabilities: (cfg) => ({
+            recolorables: [
+              {
+                get: () => cfg.background_color || defaultConfig.background_color,
+                set: (value) => window.elementSdk.setConfig({ background_color: value })
+              },
+              {
+                get: () => cfg.surface_color || defaultConfig.surface_color,
+                set: (value) => window.elementSdk.setConfig({ surface_color: value })
+              },
+              {
+                get: () => cfg.text_color || defaultConfig.text_color,
+                set: (value) => window.elementSdk.setConfig({ text_color: value })
+              },
+              {
+                get: () => cfg.primary_action_color || defaultConfig.primary_action_color,
+                set: (value) => window.elementSdk.setConfig({ primary_action_color: value })
+              },
+              {
+                get: () => cfg.secondary_action_color || defaultConfig.secondary_action_color,
+                set: (value) => window.elementSdk.setConfig({ secondary_action_color: value })
+              }
+            ],
+            borderables: [],
+            fontEditable: undefined,
+            fontSizeable: undefined
+          }),
+          mapToEditPanelValues: (cfg) => new Map([
+            ["site_name", cfg.site_name || defaultConfig.site_name],
+            ["tagline", cfg.tagline || defaultConfig.tagline],
+            ["hero_title", cfg.hero_title || defaultConfig.hero_title],
+            ["hero_description", cfg.hero_description || defaultConfig.hero_description],
+            ["cta_button", cfg.cta_button || defaultConfig.cta_button],
+            ["projects_heading", cfg.projects_heading || defaultConfig.projects_heading],
+            ["about_heading", cfg.about_heading || defaultConfig.about_heading],
+            ["about_text", cfg.about_text || defaultConfig.about_text],
+            ["contact_heading", cfg.contact_heading || defaultConfig.contact_heading],
+            ["contact_subtitle", cfg.contact_subtitle || defaultConfig.contact_subtitle],
+            ["footer_text", cfg.footer_text || defaultConfig.footer_text]
+          ])
+        });
+
+        config = { ...defaultConfig, ...window.elementSdk.config };
+      }
+
+      init();
+    }
+
+    // Start
+    initElementSdk();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c366e4f22dec972',t:'MTc2OTMzMDA2MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
