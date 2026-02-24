@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invoice Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+
+        .invoice-box {
+            width: 800px;
+            margin: 30px auto;
+            padding: 30px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .sub-heading {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .top-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th, table td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: center;
+        }
+
+        table th {
+            background: #eee;
+        }
+
+        .total {
+            text-align: right;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 8px 15px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        @media print {
+            button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="invoice-box">
+
+    <h1>PakLine Engineering Company</h1>
+    <div class="sub-heading">
+        Deal in All Kind of HV Chiller Turbine Pump & Repairing
+    </div>
+
+    <div class="top-info">
+        <div>
+            Date: <span id="date"></span><br>
+            NTN #: 5357744-8
+        </div>
+        <div>
+            Proprietor: Mian Sageer Ahmad<br>
+            92-306-4678235
+        </div>
+    </div>
+
+    <hr>
+
+    <label>Customer Name:</label>
+    <input type="text" id="customer" placeholder="Enter Customer Name">
+
+    <table id="invoiceTable">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="items">
+        </tbody>
+    </table>
+
+    <button onclick="addItem()">Add Item</button>
+
+    <div class="total">
+        Sub Total: Rs <span id="subtotal">0</span>
+    </div>
+
+    <div class="footer">
+        Service Engineer: Mian Zulfiqar<br>
+        Phone: 0322-4132968<br><br>
+        Pathi Ground Dil Muhammad Road Lahore<br>
+        Email: mianzulfiqar78644@gmail.com
+    </div>
+
+    <button onclick="calculateTotal()">Calculate</button>
+    <button onclick="window.print()">Print Invoice</button>
+
+</div>
+
+<script>
+
+    // Auto Date
+    document.getElementById("date").innerHTML = new Date().toLocaleDateString();
+
+    function addItem() {
+        let table = document.getElementById("items");
+
+        let row = table.insertRow();
+
+        let cell1 = row.insertCell(0);
+        let cell2 = row.insertCell(1);
+        let cell3 = row.insertCell(2);
+
+        cell1.innerHTML = "<input type='text' placeholder='Description'>";
+        cell2.innerHTML = "<input type='number' class='amount' placeholder='Amount'>";
+        cell3.innerHTML = "<button onclick='removeItem(this)'>X</button>";
+    }
+
+    function removeItem(btn) {
+        let row = btn.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+        calculateTotal();
+    }
+
+    function calculateTotal() {
+        let amounts = document.getElementsByClassName("amount");
+        let total = 0;
+
+        for (let i = 0; i < amounts.length; i++) {
+            total += Number(amounts[i].value) || 0;
+        }
+
+        document.getElementById("subtotal").innerText = total;
+    }
+
+</script>
+
+</body>
+</html>
