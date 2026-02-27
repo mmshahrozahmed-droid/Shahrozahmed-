@@ -145,7 +145,7 @@
         let cell2 = row.insertCell(1);
         let cell3 = row.insertCell(2);
 
-        cell1.innerHTML = "<input type='text' placeholder='Description'>";
+        cell1.innerHTML = "<input type='text' placeholder='Description'oninput='autoResize(this)'>";
         cell2.innerHTML = "<input type='number' class='amount' placeholder='Amount'>";
         cell3.innerHTML = "<button onclick='removeItem(this)'>X</button>";
     }
