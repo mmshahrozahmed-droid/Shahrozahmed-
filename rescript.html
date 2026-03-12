@@ -44,10 +44,29 @@
             border: 1px solid #000;
             padding: 8px;
             text-align: center;
+            vertical-align: top;
         }
 
         table th {
             background: #eee;
+        }
+
+        /* Styling for the multi-line description */
+        .desc-area {
+            width: 95%;
+            border: none;
+            resize: none;
+            overflow: hidden;
+            font-family: inherit;
+            font-size: 14px;
+            min-height: 20px;
+            outline: none;
+        }
+
+        /* Styling for the date input */
+        #date-input {
+            border: 1px solid #ddd;
+            font-family: inherit;
         }
 
         .total {
@@ -69,8 +88,11 @@
         }
 
         @media print {
-            button {
-                display: none;
+            button, .action-col, .remove-btn {
+                display: none !important;
+            }
+            input, textarea {
+                border: none !important;
             }
         }
     </style>
@@ -87,7 +109,7 @@
 
     <div class="top-info">
         <div>
-            Date: <span id="date"></span><br>
+            Date: <input type="date" id="date-input"><br>
             NTN #: 5357744-8
         </div>
         <div>
@@ -98,15 +120,15 @@
 
     <hr>
 
-    <label>QUEATION BY:</label>
+    <label>QUOTATION BY:</label>
     <input type="text" id="customer" placeholder="Enter Customer Name">
 
     <table id="invoiceTable">
         <thead>
             <tr>
-                <th>Description</th>
-                <th>Amount</th>
-                <th>Action</th>
+                <th style="width: 70%;">Description</th>
+                <th style="width: 20%;">Amount</th>
+                <th class="action-col" style="width: 10%;">Action</th>
             </tr>
         </thead>
         <tbody id="items">
@@ -132,22 +154,30 @@
 </div>
 
 <script>
+    // Set default date to Today
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById("date-input").value = today;
 
-    // Auto Date
-    document.getElementById("date").innerHTML = new Date().toLocaleDateString();
+    // Auto-resize textarea function
+    function autoResize(textarea) {
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
+    }
 
     function addItem() {
         let table = document.getElementById("items");
-
         let row = table.insertRow();
 
         let cell1 = row.insertCell(0);
         let cell2 = row.insertCell(1);
         let cell3 = row.insertCell(2);
+        
+        cell3.className = "action-col";
 
-        cell1.innerHTML = "<input type='text' placeholder='Description'oninput='autoResize(this)'>";
-        cell2.innerHTML = "<input type='number' class='amount' placeholder='Amount'>";
-        cell3.innerHTML = "<button onclick='removeItem(this)'>X</button>";
+        // Using Textarea instead of Input for multi-line support
+        cell1.innerHTML = `<textarea class="desc-area" placeholder="Description" oninput="autoResize(this)"></textarea>`;
+        cell2.innerHTML = `<input type="number" class="amount" placeholder="Amount" oninput="calculateTotal()">`;
+        cell3.innerHTML = `<button class="remove-btn" onclick="removeItem(this)">X</button>`;
     }
 
     function removeItem(btn) {
@@ -164,9 +194,11 @@
             total += Number(amounts[i].value) || 0;
         }
 
-        document.getElementById("subtotal").innerText = total;
+        document.getElementById("subtotal").innerText = total.toLocaleString();
     }
 
+    // Add one initial row
+    addItem();
 </script>
 
 </body>
